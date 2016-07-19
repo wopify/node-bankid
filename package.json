@@ -1,0 +1,20 @@
+{
+  "name": "node-bankid",
+  "version": "0.0.1",
+  "description": "A backend Node module for calling the BankID API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "node-bankid"
+  },
+  "keywords": [
+    "bankid",
+    "api",
+    "backend"
+  ],
+  "author": "Tobias Skarhed",
+  "license": "ISC"
+}
