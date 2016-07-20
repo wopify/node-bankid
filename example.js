@@ -8,8 +8,11 @@ var options = {
 };
 
 //Sign
-bankid.sign(options, (data) => {
+bankid.sign(options, (err, data) => {
 	//dostuff with data
 	//data returned as JS object
+	if(err){
+		return console.log(err);
+	}
 	console.log(data);
 });

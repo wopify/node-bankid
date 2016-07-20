@@ -25,17 +25,19 @@ module.exports = {
 		};
 
 		options.agent = new https.Agent(options);
-		console.log(options);
-		console.log('Agent: ', options.agent);
+		// console.log(options);
+		// console.log('Agent: ', options.agent);
 
 		//API call returns orderResponse of type OrderResponseType or error
 		https.get(options , (res) => {
 			
 			res.on('data', (data) => {
 				console.log(data.toString());
-				return callback(
-					xml2js(data.toString())
-				);
+
+				xml2js(data.toString(), (err, result) => {
+					return callback(err, result);
+				});
+
 			});
 
 		}).on('error', (e)=>{
