@@ -20,7 +20,7 @@ var options = {
   method: 'GET',
   rejectUnauthorized: false,
   passphrase: argObj.passphrase,
-  ca: '-----BEGIN CERTIFICATE-----
+  ca: `-----BEGIN CERTIFICATE-----
 MIID8zCCAtugAwIBAgIRAODr4WfulmxifqSx8UEMbyIwDQYJKoZIhvcNAQEFBQAw
 eTEkMCIGA1UECgwbRmluYW5zaWVsbCBJRC1UZWtuaWsgQklEIEFCMRowGAYDVQQL
 DBFJbmZyYXN0cnVjdHVyZSBDQTE1MDMGA1UEAwwsQmFua0lEIFNTTCBSb290IENl
@@ -43,7 +43,7 @@ MpCNMgKSLj2bGsrMWHCvnDWpmYY5ZkDP2GWB6aqy+ehRmlYjUbPhjD44Xfjh/Stq
 ncb0a/ZkJcUL7Q9NGJfmEhAmHcCpK8j1coSh36D8JMeSblVTBEWpnBMP5zXKAkzf
 OzZLGyy9RnV51NhRMRnQtDOFCZ9vQuuyCE/TZeOp4IgZctEvt2Aab23fx5jWBbzC
 EtEmq/VqaQ==
------END CERTIFICATE-----'
+-----END CERTIFICATE-----`
 };
 
 options.agent = new https.Agent(options);
