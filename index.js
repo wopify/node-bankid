@@ -8,13 +8,20 @@ module.exports = {
 		var requirementAlternatives = argObj.requirementAlternatives || "";
 		var userVisibleData = argObj.userVisibleData || "";
 		var userNonVisibleData = argObj.userNonVisibleData || "";
+		var pfx = argObj.pfx || "";
 
 		var options = {
 			host: 'appapi.test.bankid.com',
 			path: '/rp/v4/?' +
+				'personalNumber=' + personalNumber +
+				'&endUserInfo=' + endUserInfo +
+				'&requirementAlternatives=' + requirementAlternatives +
+				'&userVisibleData=' + userVisibleData +
+				'&userNonVisibleData=' + userNonVisibleData,//query string
 			method: 'GET',
 			rejectUnauthorized: false,
 			passphrase: argObj.passphrase,
+			pfx: pfx,
 		};
 
 		options.agent = new https.Agent(options);
