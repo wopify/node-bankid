@@ -3,11 +3,11 @@ const xml2js = require('xml2js').parseString;
 
 module.exports = {
   sign(argObj, callback){
-    var personalNumber = argObj.personalNumber || NULL;
-    var endUserInfo    = argObj.endUserInfo || NULL;
-    var requirementAlternatives = argObj.requirementAlternatives || NULL;
-    var userVisibleData = argObj.userVisibleData || NULL;
-    var userNonVisibleData = argObj.userNonVisibleData || NULL;
+    var personalNumber = argObj.personalNumber || "";
+    var endUserInfo    = argObj.endUserInfo || "";
+    var requirementAlternatives = argObj.requirementAlternatives || "";
+    var userVisibleData = argObj.userVisibleData || "";
+    var userNonVisibleData = argObj.userNonVisibleData || "";
 
 var options = {
   host: 'appapi.test.bankid.com',
@@ -46,9 +46,9 @@ console.log('Agent: ', agent);
 
   },
   auth(argObj, callback){
-    var personalNumber = argObj.personalNumber || NULL;
-    var endUserInfo = argObj.endUserInfo || NULL;
-    var requirementAlternatives = argObj.requirementAlternatives || NULL;
+    var personalNumber = argObj.personalNumber || "";
+    var endUserInfo = argObj.endUserInfo || "";
+    var requirementAlternatives = argObj.requirementAlternatives || "";
   },
   validatePersonalNumber(personalNumber, callback){
     var response = personalNumber.length === 12 ?
