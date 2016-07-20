@@ -12,7 +12,7 @@ module.exports = {
 
 		var options = {
 			host: 'appapi.test.bankid.com',
-			path: '/rp/v4/?' +
+			path: '/rp/v4?' +
 				'personalNumber=' + personalNumber +
 				'&endUserInfo=' + endUserInfo +
 				'&requirementAlternatives=' + requirementAlternatives +
@@ -30,10 +30,10 @@ module.exports = {
 
 		//API call returns orderResponse of type OrderResponseType or error
 		https.get(options , (res)=>{
-
+			console.log(data.toString());
 			res.on('data', (data)=>{
 				return callback(
-					xml2js(data)
+					xml2js(data.toString())
 				);
 			});
 
