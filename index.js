@@ -10,18 +10,16 @@ module.exports = {
     var userVisibleData = argObj.userVisibleData;
     var userNonVisibleData = argObj.userNonVisibleData;
 
-var agentOptions = {
+var options = {
   host: 'https://appapi.bankid.com/rp/v4',
+  path: '/?',//query string
+  method: 'GET',
   rejectUnauthorized: false
-
 };
+console.log(options);
 
-var agent = new https.Agent(agentOptions);
 //API call returns orderResponse of type OrderResponseType or error
-    https.get({
-      url: 'https://appapi.bankid.com/rp/v4',
-      agent: agent
-    }, (res)=>{
+    https.get(options, (res)=>{
 
       res.on('data', (data)=>{
         return callback(
