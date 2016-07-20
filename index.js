@@ -13,7 +13,9 @@ var options = {
   host: 'appapi.test.bankid.com',
   path: '/rp/v4/?',//query string
   method: 'GET',
-  rejectUnauthorized: false
+  rejectUnauthorized: false,
+  pfx: argObj.cert,
+  passphrase: arg.passphrase
 };
 console.log(options);
 
