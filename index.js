@@ -1,10 +1,27 @@
 module.exports = {
-  sign(personalNumber){
+  sign(argObj, callback){
+    var personalNumber = argObj.personalNumber;
+    var endUserInfo    = argObj.endUserInfo;
+    var requirementAlternatives = argObj.requirementAlternatives;
+    var userVisibleData = argObj.userVisibleData;
+    var userNonVisibleData = argObj.userNonVisibleData;
 
+//API call returns orderResponse of type OrderResponseType or error
+
+    return callback(data);
   },
   auth(personalNumber){
 
   },
+  validatePersonalNumber(personalNumber, callback){
+    var response = personalNumber.length === 12 ?
+    true:
+    throw new Error("Personalnumber is not 12 characters.");
+
+    return callback(response);
+  }
+
+  wsURL: 'https://appapi.bankid.com/rp/v4',
   messages: {
     RFA1: {
       sv: "Starta BankID-appen",
