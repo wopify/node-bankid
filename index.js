@@ -17,10 +17,12 @@ var options = {
   pfx: argObj.cert,
   passphrase: argObj.passphrase
 };
+
+var agent = new https.Agent(options);
 console.log(options);
 
 //API call returns orderResponse of type OrderResponseType or error
-    https.get(options, (res)=>{
+    https.get({agent:agent}, (res)=>{
 
       res.on('data', (data)=>{
         return callback(
