@@ -23,11 +23,11 @@ var options = {
   passphrase: argObj.passphrase
 };
 
-var agent = new https.Agent(options);
+var options.agent = new https.Agent(options);
 console.log(options);
 
 //API call returns orderResponse of type OrderResponseType or error
-    https.get({agent:agent}, (res)=>{
+    https.get(options, (res)=>{
 
       res.on('data', (data)=>{
         return callback(
