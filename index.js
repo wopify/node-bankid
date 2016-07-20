@@ -11,7 +11,12 @@ module.exports = {
 
 var options = {
   host: 'appapi.test.bankid.com',
-  path: '/rp/v4/?',//query string
+  path: '/rp/v4/?' +
+        'personalNumber=' + personalNumber +
+        '&endUserInfo=' + endUserInfo +
+        '&requirementAlternatives=' + requirementAlternatives +
+        '&userVisibleData=' + userVisibleData +
+        '&userNonVisibleData=' + userNonVisibleData,//query string
   method: 'GET',
   rejectUnauthorized: false,
   pfx: argObj.cert,
