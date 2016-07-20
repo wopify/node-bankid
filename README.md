@@ -5,7 +5,7 @@ Technical description of BankID can be found here https://www.bankid.com/assets/
 
 ##Usage
 ```javascript
-const bankid = require('node-bankid);
+const bankid = require('node-bankid');
 
 var options = {
 personalNumber: XXXXXXXXXXXX
