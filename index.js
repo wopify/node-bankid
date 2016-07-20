@@ -19,7 +19,7 @@ module.exports = {
       });
 
     }).on('error', (e)=>{
-      console.error(e);
+      console.error("API call error: ", e);
     });
 
   },
