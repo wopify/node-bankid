@@ -15,7 +15,7 @@ var options = {
   method: 'GET',
   rejectUnauthorized: false,
   pfx: argObj.cert,
-  passphrase: arg.passphrase
+  passphrase: argObj.passphrase
 };
 console.log(options);
 
