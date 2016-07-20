@@ -3,11 +3,11 @@ const xml2js = require('xml2js').parseString;
 
 module.exports = {
   sign(argObj, callback){
-    var personalNumber = argObj.personalNumber;
-    var endUserInfo    = argObj.endUserInfo;
-    var requirementAlternatives = argObj.requirementAlternatives;
-    var userVisibleData = argObj.userVisibleData;
-    var userNonVisibleData = argObj.userNonVisibleData;
+    var personalNumber = argObj.personalNumber || NULL;
+    var endUserInfo    = argObj.endUserInfo || NULL;
+    var requirementAlternatives = argObj.requirementAlternatives || NULL;
+    var userVisibleData = argObj.userVisibleData || NULL;
+    var userNonVisibleData = argObj.userNonVisibleData || NULL;
 
 var options = {
   host: 'appapi.test.bankid.com',
@@ -23,11 +23,16 @@ var options = {
   passphrase: argObj.passphrase
 };
 
-options.agent = new https.Agent(options);
+var agent = new https.Agent(options);
 console.log(options);
+console.log('Agent: ', agent);
 
 //API call returns orderResponse of type OrderResponseType or error
-    https.get(options, (res)=>{
+    https.get({
+      url: 'https://' + options.host + options.path,
+      agent: agent,
+      method: 'GET'
+    }, (res)=>{
 
       res.on('data', (data)=>{
         return callback(
@@ -41,9 +46,9 @@ console.log(options);
 
   },
   auth(argObj, callback){
-    var personalNumber = argObj.personalNumber;
-    var endUserInfo = argObj.endUserInfo;
-    var requirementAlternatives = argObj.requirementAlternatives;
+    var personalNumber = argObj.personalNumber || NULL;
+    var endUserInfo = argObj.endUserInfo || NULL;
+    var requirementAlternatives = argObj.requirementAlternatives || NULL;
   },
   validatePersonalNumber(personalNumber, callback){
     var response = personalNumber.length === 12 ?
