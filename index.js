@@ -19,7 +19,6 @@ var options = {
         '&userNonVisibleData=' + userNonVisibleData,//query string
   method: 'GET',
   rejectUnauthorized: false,
-  pfx: argObj.cert,
   passphrase: argObj.passphrase
 };
 
