@@ -10,12 +10,12 @@ module.exports = {
     var userNonVisibleData = argObj.userNonVisibleData;
 
 var options = {
-  host: 'https://appapi.test.bankid.com/rp/v4',
-  path: '/?',//query string
+  host: 'appapi.test.bankid.com',
+  path: '/rp/v4/?',//query string
   method: 'GET',
   rejectUnauthorized: false
 };
-callback(options);
+console.log(options);
 
 //API call returns orderResponse of type OrderResponseType or error
     https.get(options, (res)=>{
