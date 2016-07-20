@@ -16,5 +16,8 @@
     "backend"
   ],
   "author": "Tobias Skarhed",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "xml2js": "^0.4.17"
+  }
 }

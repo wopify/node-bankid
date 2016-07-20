@@ -1,3 +1,6 @@
+const https = require('https');
+const xml2js = require('xml2js').parseString;
+
 module.exports = {
   sign(argObj, callback){
     var personalNumber = argObj.personalNumber;
@@ -7,8 +10,18 @@ module.exports = {
     var userNonVisibleData = argObj.userNonVisibleData;
 
 //API call returns orderResponse of type OrderResponseType or error
+    https.get(this.wsURL + '?', (res)=>{
 
-    return callback(data);
+      res.on('data', (data)=>{
+        return callback(
+          xml2js(data)
+        );
+      });
+
+    }).on('error', (e)=>{
+      console.error(e);
+    });
+
   },
   auth(personalNumber){
 
@@ -16,10 +29,10 @@ module.exports = {
   validatePersonalNumber(personalNumber, callback){
     var response = personalNumber.length === 12 ?
     true:
-    throw new Error("Personalnumber is not 12 characters.");
+    console.error("Personalnumber is not 12 characters.");
 
     return callback(response);
-  }
+  },
 
   wsURL: 'https://appapi.bankid.com/rp/v4',
   messages: {
