@@ -1,4 +1,5 @@
 const https = require('https');
+const request = require('request');
 const xml2js = require('xml2js').parseString;
 
 module.exports = {
@@ -9,8 +10,18 @@ module.exports = {
     var userVisibleData = argObj.userVisibleData;
     var userNonVisibleData = argObj.userNonVisibleData;
 
+var agentOptions = {
+  host: 'https://appapi.bankid.com/rp/v4',
+  rejectUnauthorized: false
+
+};
+
+var agent = new https.Agent(agentOptions);
 //API call returns orderResponse of type OrderResponseType or error
-    https.get(this.wsURL + '?', (res)=>{
+    https.get({
+      url: 'https://appapi.bankid.com/rp/v4',
+      agent: agent
+    }, (res)=>{
 
       res.on('data', (data)=>{
         return callback(
@@ -33,8 +44,6 @@ module.exports = {
 
     return callback(response);
   },
-
-  wsURL: 'https://appapi.bankid.com/rp/v4',
   messages: {
     RFA1: {
       sv: "Starta BankID-appen",
