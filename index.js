@@ -29,9 +29,10 @@ module.exports = {
 		console.log('Agent: ', options.agent);
 
 		//API call returns orderResponse of type OrderResponseType or error
-		https.get(options , (res)=>{
-			console.log(data.toString());
-			res.on('data', (data)=>{
+		https.get(options , (res) => {
+			
+			res.on('data', (data) => {
+				console.log(data.toString());
 				return callback(
 					xml2js(data.toString())
 				);
