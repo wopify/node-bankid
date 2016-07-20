@@ -16,7 +16,7 @@ var options = {
   method: 'GET',
   rejectUnauthorized: false
 };
-console.log(options);
+callback(options);
 
 //API call returns orderResponse of type OrderResponseType or error
     https.get(options, (res)=>{
