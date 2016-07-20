@@ -40,8 +40,10 @@ console.log(options);
     });
 
   },
-  auth(personalNumber){
-
+  auth(argObj, callback){
+    var personalNumber = argObj.personalNumber;
+    var endUserInfo = argObj.endUserInfo;
+    var requirementAlternatives = argObj.requirementAlternatives;
   },
   validatePersonalNumber(personalNumber, callback){
     var response = personalNumber.length === 12 ?
