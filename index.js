@@ -1,5 +1,4 @@
 const https = require('https');
-const request = require('request');
 const xml2js = require('xml2js').parseString;
 
 module.exports = {
@@ -11,7 +10,7 @@ module.exports = {
     var userNonVisibleData = argObj.userNonVisibleData;
 
 var options = {
-  host: 'https://appapi.bankid.com/rp/v4',
+  host: 'https://appapi.test.bankid.com/rp/v4',
   path: '/?',//query string
   method: 'GET',
   rejectUnauthorized: false
