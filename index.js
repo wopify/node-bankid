@@ -1,64 +1,100 @@
 'use strict';
-const https = require('https');
-const xml2js = require('xml2js').parseString;
+const soap = require('soap');
+const fs = require('fs');
 
 const messages = require('./messages');
+const testCert = fs.readFileSync('./certificates/test.ca');
+const prodCert = fs.readFileSync('./certificates/production.ca');
+
+const ClientSecurity = require('./ClientSecurity')
 
 class BankID {
 
-	constructor(config){
-		this.pfx = config.pfx;
-		this.passphrase = config.passphrase;
+	constructor(config, callback){
+		this.isReady = false;
+		this.PFX = Buffer.isBuffer(config.pfx) ? config.pfx : fs.readFileSync(config.pfx);
+		this.PASSPHRASE = config.passphrase;
 
-	}
+		this.TEST = config.test;
 
-	sign(argObj, callback){
-		var personalNumber = argObj.personalNumber || "";
-		var endUserInfo    = argObj.endUserInfo || "";
-		var requirementAlternatives = argObj.requirementAlternatives || "";
-		var userVisibleData = argObj.userVisibleData || "";
-		var userNonVisibleData = argObj.userNonVisibleData || "";
+		this.CERT = this.TEST ? testCert : prodCert;
+		this.HOST = this.TEST ? 'appapi.test.bankid.com' : 'appapi.bankid.com';
+		this.PATH = '/rp/v4';
 
-		var options = {
-			host: 'appapi.test.bankid.com',
-			path: '/rp/v4?' +
-				'personalNumber=' + personalNumber +
-				'&endUserInfo=' + endUserInfo +
-				'&requirementAlternatives=' + requirementAlternatives +
-				'&userVisibleData=' + userVisibleData +
-				'&userNonVisibleData=' + userNonVisibleData,//query string
-			method: 'GET',
-			rejectUnauthorized: false,
-			passphrase: this.passphrase,
-			pfx: this.pfx,
-		};
+		var wsdlUrl = 'https://' + this.HOST + this.PATH + '?wsdl';
 
-		options.agent = new https.Agent(options);
-		// console.log(options);
-		// console.log('Agent: ', options.agent);
+		var soapOptions = {
+			wsdl_options: {
+				pfx: this.PFX,
+				passphrase: this.PASSPHRASE,
+				ca: this.CERT,
+			},
+		}
 
-		//API call returns orderResponse of type OrderResponseType or error
-		https.get(options , (res) => {
-			
-			res.on('data', (data) => {
-				console.log(data.toString());
+		soap.createClient(wsdlUrl, soapOptions, (err, client) => {
+			if(err){
+				return console.log(err);
+			}
 
-				xml2js(data.toString(), (err, result) => {
-					return callback(err, result);
-				});
+			client.setSecurity(new ClientSecurity(
+				this.PFX,
+				this.PASSPHRASE,
+				this.CERT
+			));
 
-			});
+			this.client = client;
+			this.isReady = true;
+			callback(null, client);
 
-		}).on('error', (e)=>{
-			console.error("API call error: ", e);
 		});
 
 	}
 
-	auth(argObj, callback){
-		var personalNumber = argObj.personalNumber || "";
-		var endUserInfo = argObj.endUserInfo || "";
-		var requirementAlternatives = argObj.requirementAlternatives || "";
+	_get(obj, key) {
+		return key.split(".").reduce(function(o, x) {
+			return (typeof o == "undefined" || o === null) ? o : o[x];
+		}, obj);
+	}
+
+	_btoa(text){
+		return new Buffer(text).toString('base64');
+	}
+
+	_getErrorDetails(err){
+
+		var fault = this._get(err, 'root.Envelope.Body.Fault.detail.RpFault');
+
+		return {
+			status: fault.faultStatus,
+			description: fault.detailedDescription,
+			raw: err,
+		}
+
+	}
+
+	sign(options, callback){
+
+		var params = {
+			personalNumber: options.personalNumber,
+			endUserInfo: options.endUserInfo,
+			requirementAlternatives: options.requirementAlternatives,
+			userVisibleData: options.message ? this._btoa(options.message) : undefined,
+			userNonVisibleData: options.hiddenMessage ? this._btoa(options.hiddenMessage) : undefined,
+		}
+
+		this.client.Sign(params, (err, result, raw, soapHeader) => {
+			if(err){
+				return callback( this._getErrorDetails(err) );
+			}
+			callback(null, result);
+		}); 
+
+	}
+
+	auth(options, callback){
+		var personalNumber = options.personalNumber || "";
+		var endUserInfo = options.endUserInfo || "";
+		var requirementAlternatives = options.requirementAlternatives || "";
 	}
 
 	validatePersonalNumber(personalNumber, callback){
