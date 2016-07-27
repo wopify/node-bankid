@@ -38,3 +38,7 @@ jspm_packages
 
 # Certificate
 *.pfx
+
+# sublime
+*.sublime-project
+*.sublime-workspace
