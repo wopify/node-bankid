@@ -14,10 +14,10 @@ var options = {
 
 //Sign
 bankid.sign(options, (err, data) => {
-	//dostuff with data
-	//data returned as JS object
 	if(err){
 		return console.log(err);
 	}
+	//dostuff with data
+	//data returned as JS object
 	console.log(data);
 });

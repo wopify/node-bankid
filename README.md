@@ -9,17 +9,27 @@ Technical description of BankID can be found here https://www.bankid.com/assets/
 
 ##Usage
 ```javascript
-const bankid = require('node-bankid');
+const BankID = require('node-bankid');
+const fs = require('fs');
 
-var options = {
-personalNumber: XXXXXXXXXXXX
+var config = {
+	passphrase: 'qwerty123',
+	pfx: fs.readFileSync('FPTestcert2_20150818_102329.pfx'),
 };
 
+var bankid = new BankID(config);
+
+var options = {
+	personalNumber: 'YYYYMMDDXXXX',
+}
+
 //Sign
-bankid.sign(options, (err, data)=>{
-  if(err)
-    console.log(err);
-//dostuff with data
-//data returned as JS object
+bankid.sign(options, (err, data) => {
+	if(err){
+		return console.log(err);
+	}
+	//dostuff with data
+	//data returned as JS object
+	console.log(data);
 });
 ```
