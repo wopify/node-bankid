@@ -1,6 +1,6 @@
 # node-bankid
 
-__DO NOT USE IN PRODUCTION:__ Package is still in a very early stage. It is completely useless.
+__DO NOT USE IN PRODUCTION:__ Package is still in a very early stage. Only the Sign method works as of writing.
 
 
 A backend module for BankID API calls.
@@ -8,6 +8,9 @@ A backend module for BankID API calls.
 Technical description of BankID can be found here https://www.bankid.com/assets/bankid/rp/bankid-relying-party-guidelines-v2.10.pdf
 
 ##Usage
+For now, see [example.js](example.js)
+
+<!---
 ```javascript
 const BankID = require('node-bankid');
 const fs = require('fs');
@@ -33,3 +36,4 @@ bankid.sign(options, (err, data) => {
 	console.log(data);
 });
 ```
+-->
