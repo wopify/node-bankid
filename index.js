@@ -92,9 +92,19 @@ class BankID {
 	}
 
 	auth(options, callback){
-		var personalNumber = options.personalNumber || "";
-		var endUserInfo = options.endUserInfo || "";
-		var requirementAlternatives = options.requirementAlternatives || "";
+		var params = {
+			personalNumber: options.personalNumber,
+			endUserInfo: options.endUserInfo,
+			requirementAlternatives: options.requirementAlternatives,
+		}
+
+		this.client.Authenticate(params, (err, result, raw, soapHeader) => {
+			if(err){
+				return callback( this._getErrorDetails(err) );
+			}
+			callback(null, result);
+		}); 
+
 	}
 
 	validatePersonalNumber(personalNumber, callback){
