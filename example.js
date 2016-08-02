@@ -17,7 +17,7 @@ var bankid = new BankID(config, () => {
 	//Sign
 	bankid.sign(options, (err, data) => {
 		if(err){
-			return console.log(err.raw);
+			return console.log(err);
 		}
 		//dostuff with data
 		//data returned as JS object

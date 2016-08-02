@@ -67,7 +67,7 @@ class BankID {
 		return {
 			status: fault.faultStatus,
 			description: fault.detailedDescription,
-			raw: err,
+			// raw: err,
 		}
 
 	}
