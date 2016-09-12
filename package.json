@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "node-bankid"
+    "url": "git+https://github.com/Wopify/node-bankid.git"
   },
   "keywords": [
     "bankid",
@@ -19,5 +19,10 @@
   "license": "ISC",
   "dependencies": {
     "soap": "^0.16.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/Wopify/node-bankid/issues"
+  },
+  "homepage": "https://github.com/Wopify/node-bankid#readme",
+  "devDependencies": {}
 }
