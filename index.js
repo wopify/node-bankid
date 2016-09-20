@@ -3,8 +3,8 @@ const soap = require('soap');
 const fs = require('fs');
 
 const messages = require('./messages');
-const testCert = fs.readFileSync('./certificates/test.ca');
-const prodCert = fs.readFileSync('./certificates/production.ca');
+const testCert = fs.readFileSync(__dirname + '/certificates/test.ca');
+const prodCert = fs.readFileSync(__dirname + '/certificates/production.ca');
 
 const ClientSecurity = require('./ClientSecurity')
 
